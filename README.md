@@ -1,40 +1,40 @@
 # ComfyUI LLM Assistant
 
-AI-помощник для ComfyUI в виде sidebar-панели. Помогает разбирать workflow, искать ошибки, генерировать новые workflow JSON, предлагать идеи по установленным моделям и создавать учебный курс для новичка под конкретное железо.
+An AI assistant for ComfyUI in the form of a sidebar panel. It helps analyze workflows, find errors, generate new workflow JSONs, suggest ideas based on installed models, and create a beginner's training course tailored to specific hardware.
 
-Создатель: **CrazyDashTool**
+Creator: **CrazyDashTool**
 
-## Возможности
+## Features
 
-- Анализ текущего ComfyUI workflow: ноды, связи, параметры, возможные ошибки.
-- Генерация новых ComfyUI workflow в JSON с кнопкой применения в интерфейсе.
-- Улучшение параметров и подсказки по моделям, нодам и пайплайнам.
-- Просмотр установленных моделей, сохраненных workflow и структуры папок ComfyUI.
-- Генератор курса для новичка: пользователь указывает GPU/видеокарты, VRAM, CPU, RAM, ОС, опыт и цели.
-- Цели курса: фото/изображения, видео, аудио, 3D-модели, LoRA/обучение моделей, автоматизация workflow.
-- Интерфейс на трех языках: **Русский**, **English**, **Українська**.
-- Поддержка облачных и локальных LLM-провайдеров.
+- Analysis of the current ComfyUI workflow: nodes, connections, parameters, and potential errors.
+- Generation of new ComfyUI workflows in JSON format with an apply button in the interface.
+- Parameter improvement and tips on models, nodes, and pipelines.
+- Viewing installed models, saved workflows, and the ComfyUI folder structure directory.
+- Beginner course generator: the user specifies GPU/graphics cards, VRAM, CPU, RAM, OS, experience, and goals.
+- Course goals: photos/images, videos, audio, 3D models, LoRA/model training, workflow automation.
+- Interface in three languages: **Russian**, **English**, and **Ukrainian**.
+- Support for cloud and local LLM providers.
 
-## Поддерживаемые провайдеры
+## Supported Providers
 
-| Провайдер | Тип | Ключ | Модель по умолчанию / URL |
+| Provider | Type | Key | Default Model / URL |
 |---|---|---|---|
-| OpenAI ChatGPT | Cloud API | нужен | `gpt-4o` |
-| Anthropic Claude | Cloud API | нужен | `claude-3-5-sonnet-20241022` |
-| Google Gemini | Cloud API | нужен | `gemini-2.0-flash` |
-| Groq | Cloud API | нужен | `llama-3.3-70b-versatile` |
-| xAI Grok | Cloud API | нужен | `grok-3` |
-| OpenRouter | Cloud API | нужен | `openai/gpt-4o` или любой model tag |
-| Mistral API | Cloud API | нужен | `mistral-large-latest` |
-| Ollama | Local OpenAI-compatible | не нужен | `http://127.0.0.1:11434` |
-| LM Studio | Local OpenAI-compatible | не нужен | `http://127.0.0.1:1234` |
+| OpenAI ChatGPT | Cloud API | Required | `gpt-4o` |
+| Anthropic Claude | Cloud API | Required | `claude-3-5-sonnet-20241022` |
+| Google Gemini | Cloud API | Required | `gemini-2.0-flash` |
+| Groq | Cloud API | Required | `llama-3.3-70b-versatile` |
+| xAI Grok | Cloud API | Required | `grok-3` |
+| OpenRouter | Cloud API | Required | `openai/gpt-4o` or any model tag |
+| Mistral API | Cloud API | Required | `mistral-large-latest` |
+| Ollama | Local OpenAI-compatible | Not required | `http://127.0.0.1:11434` |
+| LM Studio | Local OpenAI-compatible | Not required | `http://127.0.0.1:1234` |
 
-Ollama и LM Studio используют OpenAI-compatible endpoint `/v1/chat/completions`. В настройках можно поменять Base URL, если сервер запущен на другом адресе.
+Ollama and LM Studio use the OpenAI-compatible endpoint `/v1/chat/completions`. You can change the Base URL in the settings if the server is running on a different address.
 
-## Установка
+## Installation
 
-1. Скачайте или клонируйте репозиторий.
-2. Поместите папку `ComfyUI-LLM-Assistant` в `ComfyUI/custom_nodes/`.
+1. Download or clone the repository.
+2. Place the `ComfyUI-LLM-Assistant` folder into `ComfyUI/custom_nodes/`.
 
 ```text
 ComfyUI/
@@ -48,84 +48,84 @@ ComfyUI/
       README.md
 ```
 
-3. Установите зависимости, если они еще не установлены:
+3. Install the dependencies if they are not already installed:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Перезапустите ComfyUI.
-5. Откройте вкладку **LLM Assistant** в sidebar.
+4. Restart ComfyUI.
+5. Open the **LLM Assistant** tab in the sidebar.
 
-## Быстрый старт
+## Quick Start
 
-1. Откройте **Settings** в панели LLM Assistant.
-2. Выберите язык интерфейса.
-3. Выберите провайдера.
-4. Для cloud-провайдера вставьте API key.
-5. Для Ollama или LM Studio проверьте Base URL и укажите имя локальной модели.
-6. Сохраните настройки и задайте вопрос в чате.
+1. Open **Settings** in the LLM Assistant panel.
+2. Select the interface language.
+3. Select a provider.
+4. For a cloud provider, insert your API key.
+5. For Ollama or LM Studio, verify the Base URL and specify the local model name.
+6. Save the settings and ask a question in the chat.
 
-## Локальные модели
+## Local Models
 
 ### Ollama
 
-1. Установите Ollama.
-2. Скачайте модель, например:
+1. Install Ollama.
+2. Download a model, for example:
 
 ```bash
 ollama pull llama3.1:8b
 ```
 
-3. В LLM Assistant выберите **Ollama (local)**.
-4. Base URL по умолчанию: `http://127.0.0.1:11434`.
-5. Укажите модель, например `llama3.1:8b`.
+3. In LLM Assistant, select **Ollama (local)**.
+4. Default Base URL: `http://127.0.0.1:11434`.
+5. Specify the model, for example `llama3.1:8b`.
 
 ### LM Studio
 
-1. Откройте LM Studio.
-2. Скачайте и загрузите модель.
-3. Включите Local Server.
-4. В LLM Assistant выберите **LM Studio (local)**.
-5. Base URL по умолчанию: `http://127.0.0.1:1234`.
-6. Укажите model id, который показывает LM Studio.
+1. Open LM Studio.
+2. Download and load a model.
+3. Turn on the Local Server.
+4. In LLM Assistant, select **LM Studio (local)**.
+5. Default Base URL: `http://127.0.0.1:1234`.
+6. Specify the model ID shown in LM Studio.
 
-## Курс для новичка
+## Beginner Course
 
-В панели есть вкладка с иконкой курса. Заполните:
+There is a tab with a course icon in the panel. Fill in the following:
 
-- GPU / видеокарты и объем VRAM.
-- CPU, RAM и ОС.
-- Уровень опыта.
-- Сколько времени готовы уделять в неделю.
-- Что хотите делать: фото, видео, аудио, 3D, LoRA или автоматизацию.
+- GPU / graphics cards and VRAM amount.
+- CPU, RAM, and OS.
+- Experience level.
+- How much time you are willing to dedicate per week.
+- What you want to do: photos, videos, audio, 3D, LoRA, or automation.
 
-После отправки выбранная LLM предложит персональный учебный план: настройка ComfyUI, подходящие модели, ограничения по VRAM, упражнения, ошибки новичков и финальный проект.
+After submitting, the selected LLM will offer a personal study plan: ComfyUI setup, suitable models, VRAM limitations, exercises, beginner mistakes, and a final project.
 
-## API endpoints
+## API Endpoints
 
 | Method | Path | Description |
 |---|---|---|
-| `POST` | `/llm-assistant/chat` | Отправка сообщений выбранному LLM-провайдеру |
-| `GET` | `/llm-assistant/files` | Структура папок ComfyUI |
-| `GET` | `/llm-assistant/models-list` | Список установленных моделей |
-| `GET` | `/llm-assistant/workflow-files` | Список сохраненных workflow JSON |
+| `POST` | `/llm-assistant/chat` | Send messages to the selected LLM provider |
+| `GET` | `/llm-assistant/files` | ComfyUI folder structure |
+| `GET` | `/llm-assistant/models-list` | List of installed models |
+| `GET` | `/llm-assistant/workflow-files` | List of saved workflow JSON files |
 
-## Безопасность
+## Security
 
-- API-ключи хранятся только в `localStorage` браузера.
-- Запросы идут через локальный backend ComfyUI.
-- Ключи не сохраняются на удаленном сервере этого расширения.
-- Ollama и LM Studio работают локально и не требуют API-ключа.
+- API keys are stored only in the browser's `localStorage`.
+- Requests are made through the local ComfyUI backend.
+- Keys are not saved on the remote server of this extension.
+- Ollama and LM Studio run locally and do not require an API key.
 
-## Полезные ссылки
+## Useful Links
 
 - [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 - [Mistral Chat Completions](https://docs.mistral.ai/api/endpoint/chat)
 - [Ollama OpenAI compatibility](https://docs.ollama.com/openai)
 - [LM Studio OpenAI compatibility](https://lmstudio.ai/docs/developer/openai-compat/)
 
-## Структура проекта
+## Project Structure
 
 ```text
 ComfyUI-LLM-Assistant/
@@ -142,17 +142,17 @@ ComfyUI-LLM-Assistant/
 
 ### v1.1.0
 
-- Добавлена поддержка Mistral API.
-- Добавлена поддержка Ollama.
-- Добавлена поддержка LM Studio.
-- Добавлен выбор языка: русский, английский, украинский.
-- Добавлен генератор учебного курса для новичков.
+- Added support for Mistral API.
+- Added support for Ollama.
+- Added support for LM Studio.
+- Added language selection: Russian, English, Ukrainian.
+- Added a training course generator for beginners.
 
 ### v1.0.0
 
-- Первый релиз LLM Assistant.
-- Sidebar-панель, чат, быстрые действия, просмотр моделей и workflow.
+- First release of the LLM Assistant.
+- Sidebar panel, chat, quick actions, view models, and workflows.
 
 ## License
 
-MIT License. См. файл [LICENSE](LICENSE).
+MIT License. See the [LICENSE](LICENSE) file.

@@ -1,43 +1,57 @@
 # ComfyUI LLM Assistant
 
-An AI assistant for ComfyUI in the form of a sidebar panel. It helps analyze workflows, find errors, generate new workflow JSONs, suggest ideas based on installed models, and create a beginner's training course tailored to specific hardware.
+AI assistant sidebar for ComfyUI.
 
 Creator: **CrazyDashTool**
 
+Version: **1.2.1**
+
 ## Features
 
-- Analysis of the current ComfyUI workflow: nodes, connections, parameters, and potential errors.
-- Generation of new ComfyUI workflows in JSON format with an apply button in the interface.
-- Parameter improvement and tips on models, nodes, and pipelines.
-- Viewing installed models, saved workflows, and the ComfyUI folder structure directory.
-- Beginner course generator: the user specifies GPU/graphics cards, VRAM, CPU, RAM, OS, experience, and goals.
-- Course goals: photos/images, videos, audio, 3D models, LoRA/model training, workflow automation.
-- Interface in three languages: **Russian**, **English**, and **Ukrainian**.
-- Support for cloud and local LLM providers.
+- Multi-chat history: create, switch, delete, and keep separate chat sessions.
+- Context-aware answers: the assistant can include the current workflow, saved workflows, installed models, and recent chat history.
+- Streaming responses over SSE: text appears while the model is generating.
+- Cancel button for long generations.
+- Markdown rendering for assistant replies: headings, lists, inline code, code blocks, copy buttons, and workflow JSON apply buttons.
+- Prompt Enhancer tab: expand a simple prompt into a detailed ComfyUI prompt with weights, style, camera, lighting, negative prompt, and technical parameters.
+- Insert enhanced prompts into the selected ComfyUI node when it has a compatible text/prompt widget.
+- Image upload for vision-capable models/providers.
+- Ollama Web Search context: optional web search results are injected into the prompt before the LLM call.
+- Voice input through the browser Web Speech API.
+- ComfyUI-style dark interface instead of the older futuristic look.
+- File/model browser and beginner course builder are still included.
 
 ## Supported Providers
 
-| Provider | Type | Key | Default Model / URL |
-|---|---|---|---|
-| OpenAI ChatGPT | Cloud API | Required | `gpt-4o` |
-| Anthropic Claude | Cloud API | Required | `claude-3-5-sonnet-20241022` |
-| Google Gemini | Cloud API | Required | `gemini-2.0-flash` |
-| Groq | Cloud API | Required | `llama-3.3-70b-versatile` |
-| xAI Grok | Cloud API | Required | `grok-3` |
-| OpenRouter | Cloud API | Required | `openai/gpt-4o` or any model tag |
-| Mistral API | Cloud API | Required | `mistral-large-latest` |
-| Ollama | Local OpenAI-compatible | Not required | `http://127.0.0.1:11434` |
-| LM Studio | Local OpenAI-compatible | Not required | `http://127.0.0.1:1234` |
+| Provider | Key | Default model |
+|---|---:|---|
+| OpenAI | Required | `gpt-5.2` |
+| Anthropic Claude | Required | `claude-sonnet-4-6` |
+| Google Gemini | Required | `gemini-3-pro-preview` |
+| Groq | Required | `openai/gpt-oss-120b` |
+| xAI Grok | Required | `grok-4.20-reasoning` |
+| OpenRouter | Required | `openai/gpt-5.2` |
+| Mistral API | Required | `mistral-medium-3-5` |
+| Ollama local | Not required | `qwen3:8b` |
+| LM Studio local | Not required | `local-model` |
 
-Ollama and LM Studio use the OpenAI-compatible endpoint `/v1/chat/completions`. You can change the Base URL in the settings if the server is running on a different address.
+Model fields are editable. Some model names are aliases or preview models and may depend on your provider account access.
 
-<img width="569" height="1080" alt="image" src="https://github.com/user-attachments/assets/d975f79b-bd16-41be-8ceb-c7dbea817043" />
+## Ollama Web Search
 
+Ollama Web Search uses Ollama's hosted endpoint:
+
+```text
+POST https://ollama.com/api/web_search
+Authorization: Bearer <OLLAMA_API_KEY>
+```
+
+This is separate from the local Ollama server. Create a free Ollama account key, put it into **Settings -> Ollama Web Search API key**, and enable **Ollama web search** below the chat input.
 
 ## Installation
 
 1. Download or clone the repository.
-2. Place the `ComfyUI-LLM-Assistant` folder into `ComfyUI/custom_nodes/`.
+2. Place the folder into `ComfyUI/custom_nodes/`.
 
 ```text
 ComfyUI/
@@ -51,111 +65,96 @@ ComfyUI/
       README.md
 ```
 
-3. Install the dependencies if they are not already installed:
+3. Install dependencies if needed:
 
 ```bash
 pip install -r requirements.txt
 ```
 
 4. Restart ComfyUI.
-5. Open the **LLM Assistant** tab in the sidebar.
-
-## Quick Start
-
-1. Open **Settings** in the LLM Assistant panel.
-2. Select the interface language.
-3. Select a provider.
-4. For a cloud provider, insert your API key.
-5. For Ollama or LM Studio, verify the Base URL and specify the local model name.
-6. Save the settings and ask a question in the chat.
+5. Open the **LLM Assistant** sidebar tab or the floating **AI** button.
 
 ## Local Models
 
 ### Ollama
 
 1. Install Ollama.
-2. Download a model, for example:
+2. Pull a model, for example:
 
 ```bash
-ollama pull llama3.1:8b
+ollama pull qwen3:8b
 ```
 
-3. In LLM Assistant, select **Ollama (local)**.
+3. Select **Ollama local** in the assistant settings.
 4. Default Base URL: `http://127.0.0.1:11434`.
-5. Specify the model, for example `llama3.1:8b`.
+5. Use a vision-capable local model if you want image input.
 
 ### LM Studio
 
 1. Open LM Studio.
 2. Download and load a model.
 3. Turn on the Local Server.
-4. In LLM Assistant, select **LM Studio (local)**.
+4. Select **LM Studio local** in the assistant settings.
 5. Default Base URL: `http://127.0.0.1:1234`.
-6. Specify the model ID shown in LM Studio.
-
-## Beginner Course
-
-There is a tab with a course icon in the panel. Fill in the following:
-
-- GPU / graphics cards and VRAM amount.
-- CPU, RAM, and OS.
-- Experience level.
-- How much time you are willing to dedicate per week.
-- What you want to do: photos, videos, audio, 3D, LoRA, or automation.
-
-After submitting, the selected LLM will offer a personal study plan: ComfyUI setup, suitable models, VRAM limitations, exercises, beginner mistakes, and a final project.
 
 ## API Endpoints
 
 | Method | Path | Description |
 |---|---|---|
-| `POST` | `/llm-assistant/chat` | Send messages to the selected LLM provider |
+| `POST` | `/llm-assistant/chat` | Non-streaming chat fallback |
+| `POST` | `/llm-assistant/chat/stream` | SSE streaming chat |
+| `POST` | `/llm-assistant/web-search` | Ollama web search helper |
 | `GET` | `/llm-assistant/files` | ComfyUI folder structure |
-| `GET` | `/llm-assistant/models-list` | List of installed models |
-| `GET` | `/llm-assistant/workflow-files` | List of saved workflow JSON files |
+| `GET` | `/llm-assistant/models-list` | Installed model files |
+| `GET` | `/llm-assistant/workflow-files` | Saved workflow JSON files |
 
 ## Security
 
-- API keys are stored only in the browser's `localStorage`.
-- Requests are made through the local ComfyUI backend.
-- Keys are not saved on the remote server of this extension.
-- Ollama and LM Studio run locally and do not require an API key.
+- Provider keys are stored only in browser `localStorage`.
+- Requests go through the local ComfyUI backend.
+- Local Ollama and LM Studio chat calls do not require provider keys.
+- Ollama Web Search requires its own Ollama account API key only when the web search checkbox is enabled.
 
 ## Useful Links
 
 - [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
-- [Mistral Chat Completions](https://docs.mistral.ai/api/endpoint/chat)
+- [OpenAI models](https://platform.openai.com/docs/models)
+- [Anthropic models](https://docs.anthropic.com/en/docs/about-claude/models/all-models)
+- [Google Gemini models](https://ai.google.dev/gemini-api/docs/models)
+- [Groq models](https://console.groq.com/docs/models)
+- [Mistral models](https://docs.mistral.ai/getting-started/models/)
+- [Ollama Web Search](https://docs.ollama.com/capabilities/web-search)
 - [Ollama OpenAI compatibility](https://docs.ollama.com/openai)
 - [LM Studio OpenAI compatibility](https://lmstudio.ai/docs/developer/openai-compat/)
 
-## Project Structure
-
-```text
-ComfyUI-LLM-Assistant/
-  __init__.py
-  server.py
-  requirements.txt
-  pyproject.toml
-  README.md
-  web/
-    llm_assistant.js
-```
-
 ## Changelog
+
+### v1.2.1
+
+- Added multi-chat sessions with persistent history.
+- Added streaming responses through `/llm-assistant/chat/stream`.
+- Added generation cancel support.
+- Added image upload and provider payload adapters for vision-capable models.
+- Added Ollama Web Search context injection.
+- Added Prompt Enhancer tab and insertion into selected ComfyUI text/prompt widgets.
+- Added Markdown rendering.
+- Added thinking indicator with animated dots.
+- Added voice input via Web Speech API.
+- Updated provider defaults and model suggestions.
+- Restyled the UI to better match ComfyUI.
 
 ### v1.1.0
 
-- Added support for Mistral API.
-- Added support for Ollama.
-- Added support for LM Studio.
+- Added Mistral API.
+- Added Ollama.
+- Added LM Studio.
 - Added language selection: Russian, English, Ukrainian.
-- Added a training course generator for beginners.
+- Added beginner course generator.
 
 ### v1.0.0
 
-- First release of the LLM Assistant.
-- Sidebar panel, chat, quick actions, view models, and workflows.
+- First release with sidebar chat, quick actions, model/workflow browsing, and workflow helpers.
 
 ## License
 
-MIT License. See the [LICENSE](LICENSE) file.
+MIT License. See [LICENSE](LICENSE).

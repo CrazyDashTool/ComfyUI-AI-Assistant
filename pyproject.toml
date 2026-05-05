@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-llm-assistant"
 version = "1.2.1"
-description = "AI-powered LLM assistant sidebar for ComfyUI — debug, generate, optimize workflows, and build beginner courses using cloud and local LLM providers"
+description = "AI-powered LLM assistant sidebar for ComfyUI: chats, streaming, prompt enhancement, web search, image input, workflow debugging, and beginner courses"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.8"

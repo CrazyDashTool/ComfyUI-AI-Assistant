@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-llm-assistant"
-version = "1.1.0"
+version = "1.2.1"
 description = "AI-powered LLM assistant sidebar for ComfyUI — debug, generate, optimize workflows, and build beginner courses using cloud and local LLM providers"
 readme = "README.md"
 license = { file = "LICENSE" }

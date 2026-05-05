@@ -31,6 +31,9 @@ Creator: **CrazyDashTool**
 
 Ollama and LM Studio use the OpenAI-compatible endpoint `/v1/chat/completions`. You can change the Base URL in the settings if the server is running on a different address.
 
+<img width="569" height="1080" alt="image" src="https://github.com/user-attachments/assets/d975f79b-bd16-41be-8ceb-c7dbea817043" />
+
+
 ## Installation
 
 1. Download or clone the repository.

@@ -25,15 +25,15 @@ Version: **1.2.1**
 
 | Provider | Key | Default model |
 |---|---:|---|
-| OpenAI | Required | `gpt-5.2` |
+| OpenAI | Required | `gpt-5.5` |
 | Anthropic Claude | Required | `claude-sonnet-4-6` |
 | Google Gemini | Required | `gemini-3-pro-preview` |
 | Groq | Required | `openai/gpt-oss-120b` |
 | xAI Grok | Required | `grok-4.20-reasoning` |
-| OpenRouter | Required | `openai/gpt-5.2` |
+| OpenRouter | Required | `minimax/minimax-m2.5:free` |
 | Mistral API | Required | `mistral-medium-3-5` |
-| Ollama local | Not required | `qwen3:8b` |
-| LM Studio local | Not required | `local-model` |
+| Ollama local | Not required | `local-models` |
+| LM Studio local | Not required | `local-models` |
 
 Model fields are editable. Some model names are aliases or preview models and may depend on your provider account access.
 
